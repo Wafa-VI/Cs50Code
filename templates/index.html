@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <h1>Register</h1>
+    <div class="section">
+     <form action="/score" method="post">
+        <input autocomplete="off" autofocus name="id" placeholder="ID number" type="number" required>
+        <input type="submit" placeholder="Show your scores">
+     </form>
+    </div>
+    <div class="section">
+      <table>
+          <thead>
+            <tr>
+                <th>Highest Score</th>
+                <th>lowest Score</th>
+                <th>Class Average</th>
+            </tr>
+          </thead>
+        <tbody>
+            <tr>
+              <td> Max </td>
+              <td> Min </td>
+              <td> Avg </td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block body %}
+            <div class="section">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Quizz1</th>
+                            <th>MidTerm Test</th>
+                            <th>Quizz2</th>
+                            <th>Exam</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for score in scoreid %}
+                        <tr>
+                            <td>{{score.id}}</td>
+                            <td>{{score.Quizz1}}</td>
+                            <td>{{score.MidTermTest}}</td>
+                            <td>{{score.Quizz2}}</td>
+                            <td>{{score.Exam}}</td>
+                            <td>{{score.Total}}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <h5> Grade: {{Grade}}</h5>
+
+{% endblock %}
