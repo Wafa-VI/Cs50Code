@@ -21,9 +21,9 @@ db.execute("UPDATE score SET Total = (SELECT SUM(Quizz1+MidTermTest+Quizz2+Exam)
 
 @app.route("/", methods=["GET", "POST"])
 def index():
-    Max = db.execute("SELECT MAX(Total) FROM score")
-    Min = db.execute("SELECT MIN(Total) FROM score")
-    Avg = db.execute("SELECT AVG(Total) FROM score")
+    Max = db.execute("SELECT MAX(Total) FROM score AS MTotal")
+    Min = db.execute("SELECT MIN(Total) FROM score AS MTotal")
+    Avg = db.execute("SELECT AVG(Total) FROM score AS ATOtal")
     return render_template("index.html", Max=Max, Min=Min, Avg=Avg)
 
 
