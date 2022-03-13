@@ -11,29 +11,29 @@ db = SQL("sqlite:///score.db")
 
 ID = [1256, 9876, 2376, 2199, 3301]
 
+db.execute("INSERT INTO score (id, Quizz1, MidTermTest, Quizz2, Exam) VALUES(?, ?, ?, ?, ?)", 1256, 4, 15, 4, 66)
+db.execute("INSERT INTO score (id, Quizz1, MidTermTest, Quizz2, Exam) VALUES(?, ?, ?, ?, ?)", 9876, 3, 20, 5, 65)
+db.execute("INSERT INTO score (id, Quizz1, MidTermTest, Quizz2, Exam) VALUES(?, ?, ?, ?, ?)", 2376, 5, 15, 4, 50)
+db.execute("INSERT INTO score (id, Quizz1, MidTermTest, Quizz2, Exam) VALUES(?, ?, ?, ?, ?)", 2199, 5, 14, 3, 60)
+db.execute("INSERT INTO score (id, Quizz1, MidTermTest, Quizz2, Exam) VALUES(?, ?, ?, ?, ?)", 3301, 3, 18, 4, 55)
+db.execute("UPDATE score SET Total = (SELECT SUM(Quizz1+MidTermTest+Quizz2+Exam) FROM score)")
+
+
 @app.route("/", methods=["GET", "POST"])
 def index():
-    return render_template("index.html")
+    Max = db.execute("SELECT MAX(Total) FROM score")
+    Min = db.execute("SELECT MIN(Total) FROM score")
+    Avg = db.execute("SELECT AVG(Total) FROM score")
+    return render_template("index.html", Max=Max, Min=Min, Avg=Avg)
 
 
 @app.route("/score", methods=["POST"])
 def score():
-    db.execute("INSERT INTO score (id, Quizz1, MidTermTest, Quizz2, Exam) VALUES(?, ?, ?, ?, ?)", 1256, 4, 15, 4, 66)
-    db.execute("INSERT INTO score (id, Quizz1, MidTermTest, Quizz2, Exam) VALUES(?, ?, ?, ?, ?)", 9876, 3, 20, 5, 65)
-    db.execute("INSERT INTO score (id, Quizz1, MidTermTest, Quizz2, Exam) VALUES(?, ?, ?, ?, ?)", 2376, 5, 15, 4, 50)
-    db.execute("INSERT INTO score (id, Quizz1, MidTermTest, Quizz2, Exam) VALUES(?, ?, ?, ?, ?)", 2199, 5, 14, 3, 60)
-    db.execute("INSERT INTO score (id, Quizz1, MidTermTest, Quizz2, Exam) VALUES(?, ?, ?, ?, ?)", 3301, 3, 18, 4, 55)
-    db.execute("UPDATE score SET Total = (SELECT SUM(Quizz1+MidTermTest+Quizz2+Exam) FROM score)")
-
-    Max = db.execute("SELECT MAX(Total) FROM score")
-    Min = db.execute("SELECT MIN(Total) FROM score")
-    Avg = db.execute("SELECT AVG(Total) FROM score")
-
     ids = request.form.get("id")
     # convert id to integer
     id = int(ids)
     if ids not in ID:
-        return render_template("index.html", Max=Max, Min=Min, Avg=Avg)
+        return render_template("index.html")
     else:
         scoreid = db.execute("SELECT * FROM score WHERE id = ", id)
         # save G with total to check grade
