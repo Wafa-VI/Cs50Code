@@ -11,12 +11,13 @@ db = SQL("sqlite:///score.db")
 
 ID = [1256, 9876, 2376, 2199, 3301]
 
-db.execute("INSERT INTO score (id, Quizz1, MidTermTest, Quizz2, Exam) VALUES(?, ?, ?, ?, ?)", 1256, 4, 15, 4, 66)
-db.execute("INSERT INTO score (id, Quizz1, MidTermTest, Quizz2, Exam) VALUES(?, ?, ?, ?, ?)", 9876, 3, 20, 5, 65)
-db.execute("INSERT INTO score (id, Quizz1, MidTermTest, Quizz2, Exam) VALUES(?, ?, ?, ?, ?)", 2376, 5, 15, 4, 50)
-db.execute("INSERT INTO score (id, Quizz1, MidTermTest, Quizz2, Exam) VALUES(?, ?, ?, ?, ?)", 2199, 5, 14, 3, 60)
-db.execute("INSERT INTO score (id, Quizz1, MidTermTest, Quizz2, Exam) VALUES(?, ?, ?, ?, ?)", 3301, 3, 18, 4, 55)
-db.execute("UPDATE score SET Total = (SELECT SUM(Quizz1+MidTermTest+Quizz2+Exam) FROM score)")
+#هنا لو حذفت استعلام الإنشاء بيطلع لي خطأ مافيه جدول, ولو خليته بيطلع لي بعد المرة الأولى ان الجدول موجود
+db.execute("CREATE TABLE score (id INTEGER, Quizz1 INTEGER, MidTermTest INTEGER, Quizz2 INTEGER, Exam INTEGER, Total INTEGER, PRIMARY KEY(id))")
+db.execute("INSERT INTO score (id, Quizz1, MidTermTest, Quizz2, Exam, Total) VALUES(?, ?, ?, ?, ?, ?)", 1256, 4, 15, 4, 66, "(SELECT SUM(Quizz1+MidTermTest+Quizz2+Exam))")
+db.execute("INSERT INTO score (id, Quizz1, MidTermTest, Quizz2, Exam, Total) VALUES(?, ?, ?, ?, ?, ?)", 9876, 3, 20, 5, 65, "(SELECT SUM(Quizz1+MidTermTest+Quizz2+Exam))")
+db.execute("INSERT INTO score (id, Quizz1, MidTermTest, Quizz2, Exam, Total) VALUES(?, ?, ?, ?, ?, ?)", 2376, 5, 15, 4, 50, "(SELECT SUM(Quizz1+MidTermTest+Quizz2+Exam))")
+db.execute("INSERT INTO score (id, Quizz1, MidTermTest, Quizz2, Exam, Total) VALUES(?, ?, ?, ?, ?, ?)", 2199, 5, 14, 3, 60, "(SELECT SUM(Quizz1+MidTermTest+Quizz2+Exam))")
+db.execute("INSERT INTO score (id, Quizz1, MidTermTest, Quizz2, Exam, Total) VALUES(?, ?, ?, ?, ?, ?)", 3301, 3, 18, 4, 55, "(SELECT SUM(Quizz1+MidTermTest+Quizz2+Exam))")
 
 
 @app.route("/", methods=["GET", "POST"])
