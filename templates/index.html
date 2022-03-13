@@ -19,9 +19,15 @@
           </thead>
         <tbody>
             <tr>
-              <td> {{Max.MTotal}} </td>
-              <td> {{Min.MTotal}} </td>
-              <td> {{Avg.ATOtal}} </td>
+              {% for max in Max %}
+              <td> {{max.MTotal}} </td>
+              {% endfor %}
+              {% for max in Max %}
+              <td> {{min.MTotal}} </td>
+              {% endfor %}
+              {% for max in Max %}
+              <td> {{avg.ATOtal}} </td>
+              {% endfor %}
             </tr>
         </tbody>
       </table>
